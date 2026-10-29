@@ -1,0 +1,7 @@
+For the target video, at 0.00 seconds into the target video, <Picture 1> (from [Shot 1]) is fully referenced.
+
+integrated_multimodal_description: [Shot 1] Begin with the supplied image of a red ceramic cup on a wooden table beside an open window. Preserve the cup, table and window arrangement. A gentle breeze lifts the linen curtain; its shadow slides across the table. The camera slowly pushes toward the cup in one continuous shot. By the end, the curtain settles and the cup remains still in the foreground.
+
+overall_soundscape: Gentle wind through the open window and faint birdsong outside. No speech.
+
+non_diegetic_music: N/A

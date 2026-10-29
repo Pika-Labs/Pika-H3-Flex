@@ -1,0 +1,78 @@
+--- a/src/diffusers/schedulers/scheduling_minimax_h3.py
++++ b/src/diffusers/schedulers/scheduling_minimax_h3.py
+@@ -1,3 +1,9 @@
++# Modified by Mellis, Inc. in 2026. Copyright © 2026 Mellis, Inc.
++# Model Derivative of MiniMax H3, distributed under the MiniMax H3 Community License Agreement.
++# Code remains licensed under Apache-2.0; the model terms above apply to the adapters.
++# Changes: six-step model-evaluation-count scheduling.
++# Original upstream copyright and Apache-2.0 license notices are retained below.
++
+ # Copyright 2025 The MiniMax authors and The HuggingFace Team. All rights reserved.
+ #
+ # Licensed under the Apache License, Version 2.0 (the "License");
+@@ -22,10 +28,10 @@
+ 2. **Timesteps are `t = 1 - sigma` in `[0, 1]`**, with `t = 1` meaning *clean*. Flow-match schedulers expose `timesteps
+    = sigma * num_train_timesteps`, i.e. the opposite direction on a 1000x scale. The transformer's AdaLN consumes the
+    H3 convention directly.
+-3. **The sigma grid starts from `linspace(1, 0, num_inference_steps)`** — the terminal zero is part of the requested
+-   step count, and duplicates created by the shift are collapsed with `unique_consecutive`.
+-   `FlowMatchEulerDiscreteScheduler` instead builds `linspace(1, 1/num_train_timesteps, ...)` and appends a terminal
+-   sigma afterwards, so `len(sigmas)` and every interior value differ.
++3. **`num_inference_steps` is the model-evaluation count (NFE).** The sigma grid starts from
++   `linspace(1, 0, num_inference_steps + 1)`: every non-terminal sigma drives one transformer forward and the final
++   zero only closes the last Euler update. `FlowMatchEulerDiscreteScheduler` instead builds
++   `linspace(1, 1/num_train_timesteps, ...)` and appends a terminal sigma afterwards, so every interior value differs.
+ 
+ Everything else is ordinary rectified flow: the exponential shift `sigma' = s*sigma / (1 + (s-1)*sigma)`, and an Euler
+ update written as the `x_t` / `x0` blend `x_next = r*x_t + (1 - r)*x0` with `r = sigma_next / sigma`, evaluated in
+@@ -130,14 +136,14 @@
+         r"""
+         Build the sigma / timestep schedule.
+ 
+-        The grid is `linspace(1, 0, num_inference_steps)` pushed through the exponential shift, with consecutive
+-        duplicates collapsed. The terminal `0` is already part of that grid — the shift maps `0` to exactly `0` — so
+-        the schedule holds `num_inference_steps` sigmas and drives `num_inference_steps - 1` model evaluations, exposed
+-        as `self.timesteps = 1 - sigmas[:-1]`.
++        The grid is `linspace(1, 0, num_inference_steps + 1)` pushed through the exponential shift. The terminal `0`
++        is already part of that grid — the shift maps `0` to exactly `0` — so the schedule holds
++        `num_inference_steps + 1` sigmas and drives exactly `num_inference_steps` model evaluations, exposed as
++        `self.timesteps = 1 - sigmas[:-1]`.
+ 
+         Args:
+             num_inference_steps (`int`, *optional*):
+-                Number of sigma grid points, terminal `0` included. Ignored when `sigmas` is given.
++                Number of model evaluations (NFE). Ignored when `sigmas` is given.
+             device (`str` or `torch.device`, *optional*):
+                 Device the schedule tensors are moved to. The grid itself is always built on CPU in float32 so the
+                 schedule does not depend on the accelerator.
+@@ -146,17 +152,15 @@
+                 decreasing and terminate at `0.0`.
+         """
+         if sigmas is None:
+-            if num_inference_steps is None or num_inference_steps < 2:
++            if num_inference_steps is None or num_inference_steps < 1:
+                 raise ValueError(
+                     "`set_timesteps` requires either an explicit `sigmas` schedule or "
+-                    f"`num_inference_steps` >= 2, got {num_inference_steps}."
++                    f"`num_inference_steps` >= 1, got {num_inference_steps}."
+                 )
+ 
+             # The rectified-flow sigma range is fixed at [1.0, 0.0].
+-            base = torch.linspace(1.0, 0.0, int(num_inference_steps), dtype=torch.float32)
++            base = torch.linspace(1.0, 0.0, int(num_inference_steps) + 1, dtype=torch.float32)
+             sigmas = self._shift * base / (1 + (self._shift - 1) * base)
+-            # The shift compresses the grid near sigma = 1; collapse any float32 collisions it creates.
+-            sigmas = torch.unique_consecutive(sigmas)
+         else:
+             sigmas = torch.as_tensor(sigmas, dtype=torch.float32).flatten().cpu()
+             if sigmas.numel() < 2 or not bool((sigmas[1:] < sigmas[:-1]).all()) or sigmas[-1].item() != 0.0:
+@@ -175,8 +179,7 @@
+ 
+         Args:
+             timestep (`float` or `torch.Tensor`):
+-                A value taken from `self.timesteps`. The schedule is strictly increasing in `t`, so the match is
+-                unique.
++                A value taken from `self.timesteps`.
+ 
+         Returns:
+             `int`: The index of `timestep`.

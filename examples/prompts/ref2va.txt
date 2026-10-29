@@ -1,0 +1,6 @@
+subject_definitions: Subject 1 is the main subject shown in Picture 1.
+summary: A quiet cinematic portrait of Subject 1.
+retention_analysis: Picture 1: partially_preserved; retain the subject's recognizable appearance while changing the setting to a softly lit room.
+detailed_description: Subject 1 remains central in the frame while the camera makes a slow push in. Soft daylight enters from the left. Keep motion subtle and physically plausible.
+overall_soundscape: Quiet room ambience. No dialogue.
+non_diegetic_music: None.

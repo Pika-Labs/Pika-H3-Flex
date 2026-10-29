@@ -1,0 +1,24 @@
+{
+  "format_version": 1,
+  "model": "pika-h3-flex",
+  "model_repo": "Pika-Labs/Pika-H3-Flex",
+  "model_revision": "0ddf55ad7067ca1e76812253bd7b4600df87f759",
+  "base": {
+    "repo_id": "MiniMaxAI/MiniMax-H3",
+    "revision": "42ed227ee7df40d41602854ae760620d6eb651fe"
+  },
+  "adapters": {
+    "fl2va": {
+      "release_id": "pika-flex-fl2va-v1",
+      "path": "fl2va/adapter.safetensors",
+      "sha256": "8ed6115d647ab11c1b38d04e63c4c6e1594128ae312f7b5635cd50563b7b9327",
+      "numerics_policy": "bf16_conditioning_v1"
+    },
+    "ref2va": {
+      "release_id": "pika-flex-ref2va-v1",
+      "path": "ref2va/adapter.safetensors",
+      "sha256": "eef684ba1258f0cdbbbda6128188ad2688417f2eb17ff875375e74a32b6d61b5",
+      "numerics_policy": "fp32_conditioning_v1"
+    }
+  }
+}

@@ -1,0 +1,11 @@
+subject_definitions: <Subject 1> is the adult dancer shown in <Picture 1>; use this image for appearance and clothing. <Video 1> supplies the dance movement and camera framing. <Audio 1> is the soundtrack embedded in <Video 1>. <Audio 2> is the separately supplied percussion recording.
+
+summary: [reference generation] Show <Subject 1> performing a short dance in a sunlit rehearsal studio, using <Video 1> for movement and <Audio 2> for rhythmic inspiration.
+
+retention_analysis: <Picture 1>: partially_preserved; retain the dancer's appearance and clothing while placing the dancer in the new studio. <Video 1>: attribute_transfer; borrow the side step, quarter turn and steady full-body framing without copying the source performer or location. <Audio 1>: weak_reference; use only its broad rehearsal-room ambience, with no source speech. <Audio 2>: reference; generate a new restrained percussion rhythm with a similar pace, rather than requesting exact waveform copying.
+
+detailed_description: [Shot 1] In one steady full-body shot, <Subject 1> stands at the center of a sunlit rehearsal studio. The dancer takes two small side steps, makes a controlled quarter turn and finishes facing the camera with both feet planted. Keep the entire body in frame. Soft footfalls land with the rhythm of the percussion. The dancer does not speak.
+
+overall_soundscape: Light shoe taps on a wooden floor and quiet room ambience. No dialogue or singing.
+
+non_diegetic_music: A soft percussion accompaniment inspired by <Audio 2>, with a steady moderate pulse and no vocals. Keep the music below the footfalls.

@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pika-h3-pro"
+version = "0.1.0"
+description = "Native inference for Pika H3 Flex video and audio adapters"
+requires-python = ">=3.12,<3.13"
+license = "Apache-2.0"
+license-files = ["LICENSE-CODE", "LICENSE", "NOTICE", "THIRD_PARTY_NOTICES.md", "licenses/*.txt"]
+dependencies = ["torch==2.13.0+cu129", "torchvision==0.28.0+cu129", "transformers==5.15.0", "peft==0.20.0", "av==18.1.0", "numpy==2.5.2", "pillow==12.3.0", "pyyaml==6.0.3", "safetensors==0.8.0", "huggingface-hub==1.30.0", "accelerate==1.14.0", "diffusers @ git+https://github.com/huggingface/diffusers.git@3a2f35d4efa4c059c8bfb3bc0d6c906264895c81"]
+
+[project.scripts]
+pika-h3-pro = "pika_h3.cli:main"
+
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"pika_h3.core" = ["*.yaml"]

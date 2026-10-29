@@ -1,0 +1,40 @@
+--- a/src/diffusers/models/transformers/transformer_minimax_h3.py
++++ b/src/diffusers/models/transformers/transformer_minimax_h3.py
+@@ -1,3 +1,9 @@
++# Modified by Mellis, Inc. in 2026. Copyright © 2026 Mellis, Inc.
++# Model Derivative of MiniMax H3, distributed under the MiniMax H3 Community License Agreement.
++# Code remains licensed under Apache-2.0; the model terms above apply to the adapters.
++# Changes: FP32 AdaLN activation handling.
++# Original upstream copyright and Apache-2.0 license notices are retained below.
++
+ # Copyright 2025 The MiniMax Team and The HuggingFace Team. All rights reserved.
+ #
+ # Licensed under the Apache License, Version 2.0 (the "License");
+@@ -120,11 +126,9 @@
+         self.linear = nn.Linear(time_embed_dim, 6 * hidden_size * MINIMAX_H3_MODALITY_NUM, bias=True)
+ 
+     def forward(self, temb: torch.Tensor) -> tuple[torch.Tensor, ...]:
+-        # The activation runs at `temb`'s own precision — float32, since `time_embedder` is a float32 module in this
+-        # mixed-precision checkpoint — and only its result is cast down to the bfloat16 projection. Every block reads
+-        # the same `temb`, so a rounding applied before the activation biases every block's modulation parameters
+-        # identically at every sampling step, which accumulates coherently over the denoising trajectory.
+-        temb = self.linear(nn.functional.silu(temb).to(get_parameter_dtype(self.linear)))
++        # Activate in float32 before casting to the projection dtype.
++        # This preserves precision when the input arrives in a lower dtype.
++        temb = self.linear(nn.functional.silu(temb.float()).to(get_parameter_dtype(self.linear)))
+         temb = temb.view(-1, 6 * self.hidden_size)
+         return temb.chunk(6, dim=-1)
+ 
+@@ -146,8 +150,10 @@
+         self.linear = nn.Linear(time_embed_dim, 2 * hidden_size, bias=True)
+ 
+     def forward(self, hidden_states: torch.Tensor, temb: torch.Tensor, timestep_indices: torch.Tensor) -> torch.Tensor:
+-        # As in `MiniMaxH3AdaLayerNormModulation`: activate at `temb`'s precision, cast to the projection's dtype after.
+-        shift, scale = self.linear(nn.functional.silu(temb).to(get_parameter_dtype(self.linear))).chunk(2, dim=-1)
++        # As in `MiniMaxH3AdaLayerNormModulation`: activate in fp32, cast to the projection's
++        # dtype after. `.float()` explicit for the same reason — see the note there.
++        shift, scale = self.linear(
++            nn.functional.silu(temb.float()).to(get_parameter_dtype(self.linear))).chunk(2, dim=-1)
+         # The modulation itself stays at the block stack's precision; `forward` casts to the output heads' dtype.
+         hidden_states = self.norm(hidden_states)
+         return hidden_states * (1.0 + scale.index_select(0, timestep_indices)) + shift.index_select(

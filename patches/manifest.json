@@ -1,0 +1,42 @@
+{
+  "upstream_url": "https://github.com/huggingface/diffusers.git",
+  "upstream_revision": "3a2f35d4efa4c059c8bfb3bc0d6c906264895c81",
+  "patches": [
+    {
+      "file": "0001-h3-adaln-fp32.patch",
+      "sha256": "44ab342e67568330e2552423d5a0cfc92efaee8642d9a94973fa83571e2ca533",
+      "target": "models/transformers/transformer_minimax_h3.py",
+      "before_sha256": "31039b03d248ef93254d3471f83d32acbbfd3c255d0ac1db900be3bc6f159651",
+      "after_sha256": "19e69741b2e03bf8b091603e815b02e963253239ee3085bd8ed2b9f6be044388",
+      "modification_notice_header": "# Modified by Mellis, Inc. in 2026. Copyright \u00a9 2026 Mellis, Inc.\n# Model Derivative of MiniMax H3, distributed under the MiniMax H3 Community License Agreement.\n# Code remains licensed under Apache-2.0; the model terms above apply to the adapters.\n# Changes: FP32 AdaLN activation handling.\n# Original upstream copyright and Apache-2.0 license notices are retained below.\n\n",
+      "notice_upgrades": [
+        {
+          "sha256": "48ba45c7684d96e2c2928bcae374bc2d68813f92bc234bd0b646d78e277f1b1f",
+          "remove_header": "# Modified by Pika Fundamental Research for Pika H3 Flex.\n# Changes: FP32 AdaLN activation handling.\n# Original upstream copyright and Apache-2.0 license notices are retained below.\n\n"
+        },
+        {
+          "sha256": "500a8170fe9c6cfcfae2aa6180c628ecbcbfe5e3bff11a1a3d0c28af0020f3e7",
+          "remove_header": ""
+        }
+      ]
+    },
+    {
+      "file": "0002-h3-nfe-count.patch",
+      "sha256": "3cd3bcfc05b0dd575d81c559ec4da8fa6c30289135416f4b70d268229f485553",
+      "target": "schedulers/scheduling_minimax_h3.py",
+      "before_sha256": "307d5bf755337ef00c47237f9ac8be116e627d26e1df3b5f0bd504a80f9de8dd",
+      "after_sha256": "c163bcbeeb4f05aa3eaf7708ebc551717b9d25d02a6ac9688228d7d0878d74ea",
+      "modification_notice_header": "# Modified by Mellis, Inc. in 2026. Copyright \u00a9 2026 Mellis, Inc.\n# Model Derivative of MiniMax H3, distributed under the MiniMax H3 Community License Agreement.\n# Code remains licensed under Apache-2.0; the model terms above apply to the adapters.\n# Changes: six-step model-evaluation-count scheduling.\n# Original upstream copyright and Apache-2.0 license notices are retained below.\n\n",
+      "notice_upgrades": [
+        {
+          "sha256": "9c8298b9e96a9b70853ee14e14593b5291f1a34e280927a9630dcdf09bc75e9f",
+          "remove_header": "# Modified by Pika Fundamental Research for Pika H3 Flex.\n# Changes: six-step model-evaluation-count scheduling.\n# Original upstream copyright and Apache-2.0 license notices are retained below.\n\n"
+        },
+        {
+          "sha256": "40486d19584a7b1b9cfa7bd7f2729b9cf33ce34e6b475fbe10bb09738a5befe6",
+          "remove_header": ""
+        }
+      ]
+    }
+  ]
+}

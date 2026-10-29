@@ -1,0 +1,7 @@
+How the reference pictures align with the target video — <Picture 1> (from [Shot 1]) aligns with the 5.00-second mark of the target video.
+
+integrated_multimodal_description: [Shot 1] A close shot shows an adult potter holding a small blue bowl just above a wooden workbench. The camera remains steady as the potter lowers the bowl onto the table, releases it and withdraws both hands. End with the bowl, hands and camera composition matching the supplied final image. The bowl is stationary at the end of the shot.
+
+overall_soundscape: Quiet studio ambience, a soft ceramic tap as the bowl meets the wood and a faint sleeve rustle. No speech.
+
+non_diegetic_music: N/A

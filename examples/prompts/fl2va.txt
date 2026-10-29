@@ -1,0 +1,7 @@
+How the reference pictures align with the target video — <Picture 1> (from [Shot 1]) aligns with the 0.00-second mark of the target video; <Picture 2> (from [Shot 1]) aligns with the 5.00-second mark of the target video.
+
+integrated_multimodal_description: [Shot 1] Begin with the supplied opening image of a closed pocket watch in a watchmaker's hand above a wooden workbench. In one continuous close shot, the watchmaker presses the crown with a thumb. The lid opens with a small click, revealing the watch face. The hand steadies, holding the open watch in the position shown by the supplied ending image. Keep the watch design, hand and workbench consistent throughout; end with the lid open and the second hand ticking.
+
+overall_soundscape: Quiet workshop room tone, a small metal click as the lid opens and steady watch ticking. No speech.
+
+non_diegetic_music: N/A

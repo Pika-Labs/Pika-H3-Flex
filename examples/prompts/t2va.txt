@@ -1,0 +1,3 @@
+integrated_multimodal_description: A cinematic close shot of a red ceramic cup on a wooden table beside an open window. A soft breeze moves a linen curtain. The camera slowly pushes toward the cup as warm morning light crosses the table.
+overall_soundscape: Gentle wind through the window and faint birdsong outside. No speech.
+non_diegetic_music: None.

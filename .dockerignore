@@ -1,0 +1,6 @@
+.git
+__pycache__
+*.egg-info
+outputs
+*.safetensors
+.env

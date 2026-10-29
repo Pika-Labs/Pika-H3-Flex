@@ -1,0 +1,12 @@
+name: pika-h3-pro
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12.14
+  - pip
+  - git
+  - patch
+  - ffmpeg
+  - c-compiler
+  - pip:
+      - -r requirements.txt
