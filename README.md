@@ -5,13 +5,14 @@
 <p align="center"><strong>Built for professional iteration.</strong></p>
 <p align="center">Six-step generation · Omni-reference · Native 480p / 768p · Up to 4K via Pika API</p>
 <p align="center">
-  <a href="https://dev.pika.art" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Pika%20API-7C3AED" alt="Pika API" /></a>
+  <a href="https://dev.pika.art/models/pika/pika-h3-flex/text-to-video/playground#playground" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Pika%20API-7C3AED" alt="Pika API" /></a>
   <a href="https://create.pika.art" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Create%20with%20Pika-EC4899" alt="Create with Pika" /></a>
   <a href="https://pika.art/blog/pika-h3-flex-research" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Tech%20Blog-2563EB" alt="Tech Blog" /></a>
   <a href="https://github.com/Pika-Labs/Pika-H3-Flex" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white" alt="GitHub" /></a>
   <a href="https://huggingface.co/Pika-Labs/Pika-H3-Flex" target="_blank" rel="noopener noreferrer"><img src="https://img.shields.io/badge/Hugging%20Face-FFD21E?logo=huggingface&logoColor=black" alt="Hugging Face" /></a>
 </p>
 <p align="center">
+  <a href="https://dev.pika.art/models/pika/pika-h3-flex/text-to-video/playground#playground"><strong>Try it now</strong></a> ·
   <a href="https://huggingface.co/Pika-Labs/Pika-H3-Flex">Model weights</a> ·
   <a href="#watch-the-model">Watch samples</a> ·
   <a href="#install">Quickstart</a> ·
