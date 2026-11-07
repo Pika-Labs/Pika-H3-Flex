@@ -26,6 +26,34 @@ Pika’s hosted API extends this workflow with [1080p, 2K and 4K video generatio
 
 **Ideal for multi-shot storytelling · Motion graphics · Product films · Reference-guided animation**
 
+## AMD MI350X multi-GPU worker (this fork)
+
+This fork adds a warm, multi-GPU worker for AMD Instinct MI350X (gfx950, ROCm 7.2). It shards one 768p text-to-video+audio
+request over up to eight GPUs, with output numerically equivalent to the single-GPU pipeline. At world 8 the latency is
+3.28 / 8.73 / 17.04 s for 5 / 10 / 15 s clips, against 46.2 / 112.6 / 209.7 s for the unmodified package on one MI350X
+(12-14x; stability run on unseen prompts p50 3.29 / 8.73 / 16.88 s, p95 within 0.6 %).
+Opt-in lossy presets (`near_lossless`, `balanced`; `fast` is an alias of `balanced`) are 1.3-1.7x faster again (p50
+`near_lossless` 2.60 / 6.25 / 11.64 s, `balanced` 2.39 / 5.58 / 10.22 s). The full guide is
+**[docs/PIKA_HANDOVER.md](docs/PIKA_HANDOVER.md)**: install, starting the worker on 8 / 4 / 2 / 1 GPUs, the request format,
+every lossy key and preset with measured latency and quality, host settings, failure handling, environment variables,
+stability testing and tests.
+
+Quick start (ROCm 7.2, Python 3.12, an aiter checkout as described in the guide):
+
+```bash
+pip install -r requirements-rocm-torch.txt && pip install -r requirements-rocm.txt
+python tools/apply_diffusers_patches.py && pip install --no-deps -e .
+git clone https://github.com/ROCm/aiter.git third_party/aiter && git -C third_party/aiter checkout 32b18c86984c59d6511a233d14b6c50e5c9e24d7 \
+  && git -C third_party/aiter submodule update --init --recursive
+PYTHONPATH=src python -m pika_h3.serve --base-path <MiniMax-H3 snapshot> --adapter-path <fl2va dir>   # all visible GPUs
+# stdin, one JSON per line:
+# {"id":"a","task":"t2va","prompt":"...","seed":1,"resolution":"768p","aspect":"16:9","duration":5,"output":"/abs/a.mp4"}
+# add "lossy": "near_lossless" | "balanced" | "fast" to opt in to a lossy preset (default: lossless)
+```
+
+The sections below describe the original single-GPU package (NVIDIA recipes: `requirements.txt`, `environment.yml`, `Dockerfile`).
+They are kept unchanged.
+
 ## Watch the model
 
 Explore camera choreography, cinematic storytelling, graphic design and reference-guided animation. Click a preview to watch with sound.

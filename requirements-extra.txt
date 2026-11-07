@@ -1,0 +1,10 @@
+# Build helpers on top of requirements.txt, needed to JIT-build ROCm/aiter (mha_v4 attention, hipBLASLt solution GEMMs)
+# from a ROCm/aiter checkout (PIKA_AITER_DIR or third_party/aiter, see docs/PIKA_HANDOVER.md). They are already part of the
+# full pinned ROCm environment, requirements-rocm-torch.txt + requirements-rocm.txt.
+ninja==1.13.0
+pybind11==3.0.4
+pandas==3.1.1
+einops==0.8.2
+python-dateutil==4.0.0
+tzdata==2026.6
+# aiter itself is not a pip package here: clone ROCm/aiter 32b18c86984c59d6511a233d14b6c50e5c9e24d7 (docs/PIKA_HANDOVER.md).

@@ -1,0 +1,274 @@
+{
+ "_doc": "hipBLASLt solution per GEMM shape MxNxK, chosen in context (50-block real-weight loop) for the DiT and by a sustained rotated-weight sweep for the VAE decoder. Loaded by pika_h3.gemm_sel (default table; PIKA_GEMM_SOLS overrides).",
+ "9433x5376x14336": {
+  "sol": 440614,
+  "gain_in_context": 0.148,
+  "ms": 1.481,
+  "default_ms": 1.7,
+  "shape": "world 4 5 s down"
+ },
+ "9433x5376x7168": {
+  "sol": 440528,
+  "gain_in_context": 0.11,
+  "ms": 0.643,
+  "default_ms": 0.714,
+  "shape": "world 4 5 s o"
+ },
+ "9433x21504x5376": {
+  "sol": 0,
+  "best_candidate_gain": 0.005,
+  "shape": "world 4 5 s qkv"
+ },
+ "9433x28672x5376": {
+  "sol": 0,
+  "best_candidate_gain": 0.005,
+  "shape": "world 4 5 s up"
+ },
+ "18352x5376x14336": {
+  "sol": 0,
+  "best_candidate_gain": 0.005,
+  "shape": "world 4 10 s down"
+ },
+ "18352x5376x7168": {
+  "sol": 0,
+  "best_candidate_gain": 0.027,
+  "shape": "world 4 10 s o"
+ },
+ "18352x21504x5376": {
+  "sol": 0,
+  "best_candidate_gain": 0.01,
+  "shape": "world 4 10 s qkv"
+ },
+ "18352x28672x5376": {
+  "sol": 0,
+  "best_candidate_gain": 0.026,
+  "shape": "world 4 10 s up"
+ },
+ "27271x5376x14336": {
+  "sol": 0,
+  "best_candidate_gain": 0.007,
+  "shape": "world 4 15 s down"
+ },
+ "27271x5376x7168": {
+  "sol": 0,
+  "best_candidate_gain": 0.0,
+  "shape": "world 4 15 s o"
+ },
+ "27271x21504x5376": {
+  "sol": 0,
+  "best_candidate_gain": 0.0,
+  "shape": "world 4 15 s qkv"
+ },
+ "27271x28672x5376": {
+  "sol": 0,
+  "best_candidate_gain": 0.01,
+  "shape": "world 4 15 s up"
+ },
+ "5120x5376x14336": {
+  "sol": 439532,
+  "gain_in_context": 0.041,
+  "ms": 0.712,
+  "default_ms": 0.741,
+  "shape": "world 8 5 s down"
+ },
+ "5120x5376x7168": {
+  "sol": 439532,
+  "gain_in_context": 0.042,
+  "ms": 0.355,
+  "default_ms": 0.37,
+  "shape": "world 8 5 s o"
+ },
+ "5120x21504x5376": {
+  "sol": 0,
+  "best_candidate_gain": 0.0,
+  "shape": "world 8 5 s qkv"
+ },
+ "5120x28672x5376": {
+  "sol": 441460,
+  "gain_in_context": 0.051,
+  "ms": 1.302,
+  "default_ms": 1.368,
+  "shape": "world 8 5 s up"
+ },
+ "9176x5376x14336": {
+  "sol": 0,
+  "best_candidate_gain": 0.0,
+  "shape": "world 8 10 s down"
+ },
+ "9176x5376x7168": {
+  "sol": 440505,
+  "gain_in_context": 0.11,
+  "ms": 0.625,
+  "default_ms": 0.694,
+  "shape": "world 8 10 s o"
+ },
+ "9176x21504x5376": {
+  "sol": 0,
+  "best_candidate_gain": 0.004,
+  "shape": "world 8 10 s qkv"
+ },
+ "9176x28672x5376": {
+  "sol": 441460,
+  "gain_in_context": 0.064,
+  "ms": 2.284,
+  "default_ms": 2.43,
+  "shape": "world 8 10 s up"
+ },
+ "13636x5376x14336": {
+  "sol": 440451,
+  "gain_in_context": 0.329,
+  "ms": 1.812,
+  "default_ms": 2.408,
+  "shape": "world 8 15 s down"
+ },
+ "13636x5376x7168": {
+  "sol": 0,
+  "best_candidate_gain": 0.0,
+  "shape": "world 8 15 s o"
+ },
+ "13636x21504x5376": {
+  "sol": 0,
+  "best_candidate_gain": 0.0,
+  "shape": "world 8 15 s qkv"
+ },
+ "13636x28672x5376": {
+  "sol": 0,
+  "best_candidate_gain": 0.032,
+  "shape": "world 8 15 s up"
+ },
+ "7188x2048x8192": {
+  "sol": 440620,
+  "gain_isolated": 0.163,
+  "shape": "VAE decoder tile batch 4"
+ },
+ "7188x2048x2048": {
+  "sol": 440620,
+  "gain_isolated": 0.189,
+  "shape": "VAE decoder tile batch 4"
+ },
+ "7188x6144x2048": {
+  "sol": 440334,
+  "gain_isolated": 0.184,
+  "shape": "VAE decoder tile batch 4"
+ },
+ "7188x16384x2048": {
+  "sol": 440267,
+  "gain_isolated": 0.068,
+  "shape": "VAE decoder tile batch 4"
+ },
+ "21564x2048x8192": {
+  "sol": 440624,
+  "gain_isolated": 0.068,
+  "shape": "VAE decoder tile batch 12"
+ },
+ "21564x2048x2048": {
+  "sol": 439466,
+  "gain_isolated": 0.202,
+  "shape": "VAE decoder tile batch 12"
+ },
+ "21564x6144x2048": {
+  "sol": 0,
+  "gain_isolated": 0.025,
+  "shape": "VAE decoder tile batch 12"
+ },
+ "21564x16384x2048": {
+  "sol": 0,
+  "gain_isolated": -0.001,
+  "shape": "VAE decoder tile batch 12"
+ },
+ "9433x128x14336": {
+  "sol": 440052,
+  "gain_in_context": 0.133,
+  "ms": 0.075,
+  "default_ms": 0.085,
+  "shape": "world 4 5 s down_A"
+ },
+ "9433x384x5376": {
+  "sol": 439716,
+  "gain_in_context": 0.267,
+  "ms": 0.06,
+  "default_ms": 0.076,
+  "shape": "world 4 5 s qkv_A"
+ },
+ "9433x128x7168": {
+  "sol": 440401,
+  "gain_in_context": 0.467,
+  "ms": 0.03,
+  "default_ms": 0.044,
+  "shape": "world 4 5 s o_A"
+ },
+ "9433x128x5376": {
+  "sol": 0,
+  "best_candidate_gain": 0.0,
+  "shape": "world 4 5 s up_A"
+ },
+ "13636x128x14336": {
+  "sol": 0,
+  "best_candidate_gain": 0.0,
+  "shape": "world 8 15 s down_A"
+ },
+ "13636x384x5376": {
+  "sol": 0,
+  "best_candidate_gain": 0.0,
+  "shape": "world 8 15 s qkv_A"
+ },
+ "13636x128x7168": {
+  "sol": 0,
+  "best_candidate_gain": 0.038,
+  "shape": "world 8 15 s o_A"
+ },
+ "13636x128x5376": {
+  "sol": 0,
+  "best_candidate_gain": 0.0,
+  "shape": "world 8 15 s up_A"
+ },
+ "5120x128x14336": {
+  "sol": 0,
+  "best_candidate_gain": 0.0,
+  "shape": "world 8 5 s down_A"
+ },
+ "5120x384x5376": {
+  "sol": 439716,
+  "gain_in_context": 0.051,
+  "ms": 0.059,
+  "default_ms": 0.062,
+  "shape": "world 8 5 s qkv_A"
+ },
+ "5120x128x7168": {
+  "sol": 440401,
+  "gain_in_context": 0.409,
+  "ms": 0.022,
+  "default_ms": 0.031,
+  "shape": "world 8 5 s o_A"
+ },
+ "5120x128x5376": {
+  "sol": 440119,
+  "gain_in_context": 0.154,
+  "ms": 0.026,
+  "default_ms": 0.03,
+  "shape": "world 8 5 s up_A"
+ },
+ "9176x128x14336": {
+  "sol": 0,
+  "shape": "world 8 10 s LoRA-A: not measured in context -> default (blocks borrowing the 9433 entry)"
+ },
+ "9176x384x5376": {
+  "sol": 0,
+  "shape": "world 8 10 s LoRA-A: not measured in context -> default (blocks borrowing the 9433 entry)"
+ },
+ "9176x128x7168": {
+  "sol": 0,
+  "shape": "world 8 10 s LoRA-A: not measured in context -> default (blocks borrowing the 9433 entry)"
+ },
+ "9176x128x5376": {
+  "sol": 0,
+  "shape": "world 8 10 s LoRA-A: not measured in context -> default (blocks borrowing the 9433 entry)"
+ },
+ "13824x5376x7168": {
+  "sol": 440505,
+  "gain_in_context": 0.17,
+  "ms": 0.825,
+  "default_ms": 0.992,
+  "shape": "world 8 15 s o at the padded 13824 rows (in-context CUDA-event times, 2 procs x 2 reps per candidate; 440505/440575/440614/440528/439532 all 0.80-0.86 ms vs default 0.99-1.00)"
+ }
+}
