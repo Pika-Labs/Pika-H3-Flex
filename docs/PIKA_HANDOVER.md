@@ -17,6 +17,22 @@ warm-up happen before the worker reports ready and are not included.
 
 Opt-in lossy presets are 1.3-1.7x faster again; see [Lossy presets](#lossy-presets).
 
+Quick start (ROCm 7.2, Python 3.12, an aiter checkout as described in [Install](#install)):
+
+```bash
+pip install -r requirements-rocm-torch.txt && pip install -r requirements-rocm.txt
+python tools/apply_diffusers_patches.py && pip install --no-deps -e .
+git clone https://github.com/ROCm/aiter.git third_party/aiter && git -C third_party/aiter checkout 32b18c86984c59d6511a233d14b6c50e5c9e24d7 \
+  && git -C third_party/aiter submodule update --init --recursive
+PYTHONPATH=src python -m pika_h3.serve --base-path <MiniMax-H3 snapshot> --adapter-path <fl2va dir>   # all visible GPUs
+# stdin, one JSON per line:
+# {"id":"a","task":"t2va","prompt":"...","seed":1,"resolution":"768p","aspect":"16:9","duration":5,"output":"/abs/a.mp4"}
+# add "lossy": "near_lossless" | "balanced" | "fast" to opt in to a lossy preset (default: lossless)
+```
+
+The repository's top-level `README.md` describes the single-GPU package (NVIDIA recipes: `requirements.txt`, `environment.yml`,
+`Dockerfile`).
+
 Contents: [What the worker does](#what-the-worker-does) · [Requirements](#requirements) · [Install](#install) ·
 [Start the worker](#start-the-worker) · [Request format](#request-format) · [Failure handling](#failure-handling) ·
 [Lossy presets](#lossy-presets) · [Host settings](#host-settings) · [Latency stability](#latency-stability) ·
@@ -374,7 +390,8 @@ decoded video to rank 0 and write 1-2 GB of fp32 tensors from fresh host allocat
 
 ## Environment variables
 
-Set automatically by the package (`pika_h3/__init__.py`, inherited by the helper ranks; an explicit value wins):
+Set automatically by the worker (`pika_h3/worker_env.py`, called by `pika_h3.serve` and `pika_h3.rank_main` before torch is
+imported; importing `pika_h3` alone changes nothing; the helper ranks inherit them; an explicit value wins):
 
 | variable | default | why |
 |---|---|---|

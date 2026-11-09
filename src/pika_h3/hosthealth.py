@@ -22,6 +22,7 @@ from __future__ import annotations
 import ctypes
 import glob
 import os
+import platform
 
 
 def _read(path):
@@ -105,6 +106,8 @@ def settle_evictions(meter, quiet_s=0.5, max_s=10.0, poll_s=0.05):
 
 
 MPOL_BIND = 2
+# set_mempolicy(2) syscall number per architecture (x86_64: 238; arm64 uses the generic table: 237).
+SYS_SET_MEMPOLICY = {"x86_64": 238, "aarch64": 237, "arm64": 237}
 
 
 def mempolicy_mode():
@@ -134,9 +137,12 @@ def apply_mempolicy():
     mask = 0
     for n in nodes:
         mask |= 1 << n
+    nr = SYS_SET_MEMPOLICY.get(platform.machine())
+    if nr is None:  # unknown syscall table: leave the policy alone rather than guess a number
+        return {"mode": "skipped", "machine": platform.machine()}
     libc = ctypes.CDLL(None, use_errno=True)
     m = ctypes.c_ulong(mask)
-    rc = libc.syscall(238, MPOL_BIND, ctypes.byref(m), ctypes.c_ulong(max(nodes) + 2))  # SYS_set_mempolicy (x86_64)
+    rc = libc.syscall(nr, MPOL_BIND, ctypes.byref(m), ctypes.c_ulong(max(nodes) + 2))
     return {"mode": "bind", "nodes": sorted(nodes), "rc": rc, "errno": ctypes.get_errno() if rc else 0}
 
 

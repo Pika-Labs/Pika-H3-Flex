@@ -1,9 +1,13 @@
 # SPDX-License-Identifier: Apache-2.0
 """Helper rank process: ``python -m pika_h3.rank_main --rank R --world W --base-path P --adapter-path A``."""
-import argparse
-import os
-import sys
-import traceback
+from . import worker_env
+
+worker_env.apply()  # inherited from the worker already; repeated so that a rank started on its own gets the same defaults
+
+import argparse  # noqa: E402
+import os  # noqa: E402
+import sys  # noqa: E402
+import traceback  # noqa: E402
 
 
 def main():

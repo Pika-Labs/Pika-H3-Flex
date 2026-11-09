@@ -20,13 +20,17 @@ Every other line on stdout/stderr is free-form log output.
 The request path is the same as ``pipeline.generate`` (conditioning, six-step sampling, decode, MP4 encode and
 validation), with the text encoder, transformer and decoders kept resident on one GPU.
 """
-import argparse
-import os
-import json
-import sys
-import threading
-import time
-from pathlib import Path
+from . import worker_env
+
+worker_env.apply()  # before anything imports torch (worker-only process defaults; see worker_env.py)
+
+import argparse  # noqa: E402
+import os  # noqa: E402
+import json  # noqa: E402
+import sys  # noqa: E402
+import threading  # noqa: E402
+import time  # noqa: E402
+from pathlib import Path  # noqa: E402
 
 _EMIT_LOCK = threading.RLock()
 

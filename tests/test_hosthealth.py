@@ -1,6 +1,8 @@
 # SPDX-License-Identifier: Apache-2.0
 """CPU-only: host mitigation defaults (PIKA_HOST_THP / PIKA_HOST_MEMPOLICY on by default, env switches them off)."""
 import os
+import subprocess
+import sys
 import unittest
 from unittest import mock
 
@@ -24,6 +26,29 @@ class TestHostDefaults(unittest.TestCase):
             self.assertEqual(hosthealth.mempolicy_mode(), "bind")
             os.environ["PIKA_HOST_MEMPOLICY"] = "off"
             self.assertIsNone(hosthealth.apply_mempolicy())
+
+    def test_mempolicy_unknown_arch_skipped(self):
+        with mock.patch.dict(os.environ, {"PIKA_HOST_MEMPOLICY": "bind"}), mock.patch("platform.machine", return_value="riscv64"):
+            self.assertEqual(hosthealth.apply_mempolicy()["mode"], "skipped")
+        self.assertEqual(hosthealth.SYS_SET_MEMPOLICY["x86_64"], 238)
+        self.assertEqual(hosthealth.SYS_SET_MEMPOLICY["aarch64"], 237)
+
+    def test_package_import_has_no_side_effects(self):
+        # importing pika_h3 must not change the environment or the memory policy (the worker sets them in worker_env.apply)
+        env = {k: v for k, v in os.environ.items()
+               if k not in ("ROCPROFILER_REGISTER_ENABLED", "NCCL_MIN_P2P_NCHANNELS", "NCCL_MAX_P2P_NCHANNELS")}
+        code = ("import os, sys; before = dict(os.environ);"
+                " import pika_h3, pika_h3.hosthealth, pika_h3.lossy_presets; sys.exit(0 if dict(os.environ) == before else 1)")
+        r = subprocess.run([sys.executable, "-c", code], env=env, cwd=os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        self.assertEqual(r.returncode, 0)
+
+    def test_worker_env_defaults(self):
+        from pika_h3 import worker_env
+        with mock.patch.dict(os.environ, {"PIKA_HOST_MEMPOLICY": "off", "NCCL_MIN_P2P_NCHANNELS": "8"}):
+            os.environ.pop("NCCL_MAX_P2P_NCHANNELS", None)
+            worker_env.apply()
+            self.assertEqual(os.environ["NCCL_MIN_P2P_NCHANNELS"], "8")  # explicit value wins
+            self.assertEqual(os.environ["NCCL_MAX_P2P_NCHANNELS"], "64")
 
     def test_incremental_pass_switch(self):
         with mock.patch.dict(os.environ, {}, clear=False):
