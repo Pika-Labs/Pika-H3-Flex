@@ -18,6 +18,7 @@ p768 and above, 1024 below — upscaling, no cap); or an explicit
 
 from __future__ import annotations
 
+import os
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -244,6 +245,20 @@ def fit_reference_image(image: Image.Image, geom: Geometry, rule: str, short_edg
     return image.resize((w, h), Image.Resampling.LANCZOS), resolved
 
 
+def truncate_text_encoder(text_encoder, layer: int = TEXT_ENCODER_LAYER) -> int:
+    """Drop the Qwen3-VL decoder layers that cannot affect ``hidden_states[layer]``, the only hidden state that is read.
+
+    ``hidden_states[i]`` is the un-normed output of decoder layer ``i - 1`` for every ``i`` below the number of layers; the
+    last entry is the output of the final layer after the model's norm. Keeping ``layer + 1`` layers therefore leaves
+    ``hidden_states[layer]`` bit-identical (un-normed) and skips the remaining layers' compute (51 of 64 layers kept for
+    layer 50). The model config is not changed. Set ``PIKA_TE_TRUNC=0`` to keep the full stack. Returns the layer count.
+    """
+    layers = text_encoder.model.language_model.layers
+    if os.environ.get("PIKA_TE_TRUNC", "1") == "1" and len(layers) > layer + 1:
+        text_encoder.model.language_model.layers = torch.nn.ModuleList(list(layers)[: layer + 1])
+    return len(text_encoder.model.language_model.layers)
+
+
 class H3ConditionEncoder:
     """Stage-loaded Qwen3-VL + VAEs. ``encode(request)`` returns CPU tensors ready for ``H3DiffusionWrapper``."""
 
@@ -267,6 +282,9 @@ class H3ConditionEncoder:
             tok = AutoTokenizer.from_pretrained(root / "tokenizer")
             proc = AutoProcessor.from_pretrained(root / "processor")
             te = Qwen3VLForConditionalGeneration.from_pretrained(root / "text_encoder", dtype=torch.bfloat16).to(self.device).eval()
+            truncate_text_encoder(te)
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
             self._te = (tok, proc, te)
             print(f"[cond] Qwen3-VL loaded in {time.time() - t0:.1f}s", flush=True)
         return self._te
