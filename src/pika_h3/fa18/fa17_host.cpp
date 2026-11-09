@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: Apache-2.0
 // host shim for the asm kernels fa17 / fa18 (code object loaded at first call, path = this .so with .co, or $FA17_CO).
 // fa6_launch: same C ABI as fa16.hip (Nq = Nk = N). fa18_launch: separate query rows Nq and key rows N.
 #include <hip/hip_runtime.h>

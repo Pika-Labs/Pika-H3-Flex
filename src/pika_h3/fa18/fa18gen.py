@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 """fa18: fa17 with 128-key tiles (half the barrier transitions per flop). hd 128, bf16 in/out, fp32 scores/softmax/accum.
 Same layout/numerics as fa17 (S^T = K Q^T, queries along lanes, 32 rows/wave, permuted K rows, V^T [h, D, Np], LDS-DMA,
 b128 LDS reads, exact lazy rescale, row sum = 4 x v_smfmac_f32_16x16x64_bf16 on bf16 P).

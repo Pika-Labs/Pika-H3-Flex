@@ -1,3 +1,4 @@
+# SPDX-License-Identifier: Apache-2.0
 # ================= kernel =================
 L.append('\t.amdgcn_target "amdgcn-amd-amdhsa--gfx950"')
 L.append('\t.amdhsa_code_object_version 6')

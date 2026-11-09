@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: Apache-2.0
 // qk_rope_pack_lora for pair-interleaved q/k head dims. Same contract and rounding points as
 // kernels._qk_rope_pair_kernel (PIKA_ROPE_PAIR):
 //   lo = bf16(t_part . B[col]) ; y' = bf16(y + lo) ; v: out = y'

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: Apache-2.0
 // SDMA all-to-all shim: HSA engine copies + HIP stream write/wait values. Loaded by ctypes from each rank process.
 #include <hip/hip_runtime.h>
 #include <hsa/hsa.h>

@@ -1,15 +1,13 @@
-import os
-
-from . import hosthealth
-
-_THP = hosthealth.thp_enabled() and hosthealth.thp_incremental()  # per-request THP pass: PIKA_HOST_THP + PIKA_HOST_THP_INCR (hosthealth.py)
 # SPDX-License-Identifier: Apache-2.0
 """Follower-rank request loop."""
 import os
 import sys
 import traceback
 
+from . import hosthealth
 from .faults import FATAL_EXIT_CODE, RequestRejected
+
+_THP = hosthealth.thp_enabled() and hosthealth.thp_incremental()  # per-request THP pass: PIKA_HOST_THP + PIKA_HOST_THP_INCR (hosthealth.py)
 
 
 def fatal_exit(rank):

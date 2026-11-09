@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: Apache-2.0
 // SwiGLU with the LoRA-B up-projection folded in. Same rounding points as
 // kernels._swiglu_lora_kernel (= lora_add_ + swiglu of the reference op sequence):
 //   la = bf16(t . B[n]) ; lg = bf16(t . B[FF+n]) ; a = bf16(up[m,n] + la) ; g = bf16(up[m,FF+n] + lg)
