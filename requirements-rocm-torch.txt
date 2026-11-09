@@ -1,0 +1,6 @@
+# Step 1 of the ROCm install (docs/PIKA_HANDOVER.md): torch / torchvision / triton from the ROCm 7.2 wheel index.
+#   pip install -r requirements-rocm-torch.txt        (or: uv pip install -r requirements-rocm-torch.txt)
+--index-url https://download.pytorch.org/whl/rocm7.2
+torch==2.13.0+rocm7.2
+torchvision==0.28.0+rocm7.2
+triton-rocm==3.7.1

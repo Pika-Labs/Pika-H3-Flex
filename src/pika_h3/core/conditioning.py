@@ -267,6 +267,16 @@ class H3ConditionEncoder:
             tok = AutoTokenizer.from_pretrained(root / "tokenizer")
             proc = AutoProcessor.from_pretrained(root / "processor")
             te = Qwen3VLForConditionalGeneration.from_pretrained(root / "text_encoder", dtype=torch.bfloat16).to(self.device).eval()
+            import os
+            if os.environ.get("PIKA_TE_TRUNC", "1") == "1":
+                # Only hidden_states[TEXT_ENCODER_LAYER] (the un-normed output of decoder layer TEXT_ENCODER_LAYER - 1) is used:
+                # keep TEXT_ENCODER_LAYER + 1 layers (the last kept layer only feeds the post-norm final entry, which is not read)
+                # so hidden_states[TEXT_ENCODER_LAYER] stays the un-normed one. Embeddings bit-identical (74 / 82 / 730-token
+                # prompts); 31 -> 24.5 ms and 86 -> 68 ms per encode.
+                lm = te.model.language_model
+                if len(lm.layers) > TEXT_ENCODER_LAYER + 1:
+                    lm.layers = torch.nn.ModuleList(list(lm.layers)[:TEXT_ENCODER_LAYER + 1])
+                    torch.cuda.empty_cache()
             self._te = (tok, proc, te)
             print(f"[cond] Qwen3-VL loaded in {time.time() - t0:.1f}s", flush=True)
         return self._te
@@ -312,6 +322,8 @@ class H3ConditionEncoder:
         if n_text > G.MAX_TEXT_TOKENS:
             raise ValueError(f"prompt presentation has {n_text} text tokens > {G.MAX_TEXT_TOKENS}")
         embeds = get_qwen3vl_prompt_embeds(te, proc, token_ids, vision_inputs, text_encoder_layer=TEXT_ENCODER_LAYER, device=self.device, dtype=torch.bfloat16)
+        if getattr(self, "keep_on_device", False):  # multi-GPU engine: the embeddings are broadcast from this GPU
+            return embeds[0].detach().to(torch.bfloat16).contiguous(), torch.tensor(token_tags, dtype=torch.long)
         return embeds[0].detach().to("cpu", torch.bfloat16).contiguous(), torch.tensor(token_tags, dtype=torch.long)
 
     @torch.no_grad()

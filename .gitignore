@@ -7,3 +7,9 @@ outputs/
 *.safetensors
 build/
 dist/
+
+# local worktrees
+.work/
+
+# local aiter checkout (or a symlink to it), see docs/PIKA_HANDOVER.md
+third_party/
