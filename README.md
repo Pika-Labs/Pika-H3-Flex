@@ -190,14 +190,12 @@ Model components are provided by MiniMax-H3, Diffusers and Transformers; adapter
 
 Thanks go to these wonderful contributors:
 
-<table>
-  <tr>
-      <td align="center"><a href="https://github.com/pika-ai-code"><img src="https://github.com/pika-ai-code.png?size=100" width="80" alt="pika-ai-code" /><br /><sub><b>pika-ai-code</b></sub></a></td>
-      <td align="center"><a href="https://github.com/cade-li"><img src="https://github.com/cade-li.png?size=100" width="80" alt="cade-li" /><br /><sub><b>cade-li</b></sub></a></td>
-      <td align="center"><a href="https://github.com/mlstar9"><img src="https://github.com/mlstar9.png?size=100" width="80" alt="mlstar9" /><br /><sub><b>mlstar9</b></sub></a></td>
-      <td align="center"><a href="https://github.com/caoshiyi"><img src="https://github.com/caoshiyi.png?size=100" width="80" alt="caoshiyi" /><br /><sub><b>caoshiyi</b></sub></a></td>
-  </tr>
-</table>
+<a href="https://github.com/Pika-Labs/Pika-H3-Flex/graphs/contributors">
+  <img src="https://github.com/pika-ai-code.png?size=128" width="64" height="64" alt="pika-ai-code" title="pika-ai-code" />
+  <img src="https://github.com/cade-li.png?size=128" width="64" height="64" alt="cade-li" title="cade-li" />
+  <img src="https://github.com/mlstar9.png?size=128" width="64" height="64" alt="mlstar9" title="mlstar9" />
+  <img src="https://github.com/caoshiyi.png?size=128" width="64" height="64" alt="caoshiyi" title="caoshiyi" />
+</a>
 
 ## License
 
