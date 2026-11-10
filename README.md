@@ -186,6 +186,18 @@ Model components are provided by MiniMax-H3, Diffusers and Transformers; adapter
 
 [Hardware requirements and tested configurations](docs/hardware.md)
 
+## Contribution
+
+Contributions are welcome. Open a pull request against `main` for the single-GPU reference package, or against one of the hardware-specific branches below; every pull request is reviewed by the maintainers listed in [`.github/CODEOWNERS`](.github/CODEOWNERS).
+
+- [`contrib/amd-mi350x`](https://github.com/Pika-Labs/Pika-H3-Flex/tree/contrib/amd-mi350x): warm multi-GPU worker for AMD Instinct MI350X (gfx950, ROCm 7.2), contributed by [@caoshiyi](https://github.com/caoshiyi) with the [EAT](https://github.com/caoshiyi/EAT) agent team. The guide is [docs/PIKA_HANDOVER.md](https://github.com/Pika-Labs/Pika-H3-Flex/blob/contrib/amd-mi350x/docs/PIKA_HANDOVER.md) on that branch.
+
+Thanks go to these wonderful contributors:
+
+<a href="https://github.com/Pika-Labs/Pika-H3-Flex/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Pika-Labs/Pika-H3-Flex" />
+</a>
+
 ## License
 
 These adapters are Model Derivatives of MiniMax H3 and are distributed under the
