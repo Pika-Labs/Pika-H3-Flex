@@ -194,6 +194,8 @@ Thanks go to these wonderful contributors:
   <img src="assets/contributors.svg" alt="Contributors" />
 </a>
 
+The AMD MI350X port on [`contrib/amd-mi350x`](https://github.com/Pika-Labs/Pika-H3-Flex/tree/contrib/amd-mi350x) and the text-encoder speed-up were built by [EAT](https://github.com/caoshiyi/EAT) ([paper](https://arxiv.org/abs/2610.36848)), the agent team of [@caoshiyi](https://github.com/caoshiyi).
+
 ## License
 
 These adapters are Model Derivatives of MiniMax H3 and are distributed under the
