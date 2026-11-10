@@ -188,15 +188,16 @@ Model components are provided by MiniMax-H3, Diffusers and Transformers; adapter
 
 ## Contribution
 
-Contributions are welcome. Open a pull request against `main` for the single-GPU reference package, or against one of the hardware-specific branches below; every pull request is reviewed by the maintainers listed in [`.github/CODEOWNERS`](.github/CODEOWNERS).
-
-- [`contrib/amd-mi350x`](https://github.com/Pika-Labs/Pika-H3-Flex/tree/contrib/amd-mi350x): warm multi-GPU worker for AMD Instinct MI350X (gfx950, ROCm 7.2), contributed by [@caoshiyi](https://github.com/caoshiyi) with the [EAT](https://github.com/caoshiyi/EAT) agent team. The guide is [docs/PIKA_HANDOVER.md](https://github.com/Pika-Labs/Pika-H3-Flex/blob/contrib/amd-mi350x/docs/PIKA_HANDOVER.md) on that branch.
-
 Thanks go to these wonderful contributors:
 
-<a href="https://github.com/Pika-Labs/Pika-H3-Flex/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Pika-Labs/Pika-H3-Flex" />
-</a>
+<table>
+  <tr>
+      <td align="center"><a href="https://github.com/pika-ai-code"><img src="https://github.com/pika-ai-code.png?size=100" width="80" alt="pika-ai-code" /><br /><sub><b>pika-ai-code</b></sub></a></td>
+      <td align="center"><a href="https://github.com/cade-li"><img src="https://github.com/cade-li.png?size=100" width="80" alt="cade-li" /><br /><sub><b>cade-li</b></sub></a></td>
+      <td align="center"><a href="https://github.com/mlstar9"><img src="https://github.com/mlstar9.png?size=100" width="80" alt="mlstar9" /><br /><sub><b>mlstar9</b></sub></a></td>
+      <td align="center"><a href="https://github.com/caoshiyi"><img src="https://github.com/caoshiyi.png?size=100" width="80" alt="caoshiyi" /><br /><sub><b>caoshiyi</b></sub></a></td>
+  </tr>
+</table>
 
 ## License
 
