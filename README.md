@@ -191,10 +191,7 @@ Model components are provided by MiniMax-H3, Diffusers and Transformers; adapter
 Thanks go to these wonderful contributors:
 
 <a href="https://github.com/Pika-Labs/Pika-H3-Flex/graphs/contributors">
-  <img src="https://github.com/pika-ai-code.png?size=128" width="64" height="64" alt="pika-ai-code" title="pika-ai-code" />
-  <img src="https://github.com/cade-li.png?size=128" width="64" height="64" alt="cade-li" title="cade-li" />
-  <img src="https://github.com/mlstar9.png?size=128" width="64" height="64" alt="mlstar9" title="mlstar9" />
-  <img src="https://github.com/caoshiyi.png?size=128" width="64" height="64" alt="caoshiyi" title="caoshiyi" />
+  <img src="assets/contributors.svg" alt="Contributors" />
 </a>
 
 ## License
